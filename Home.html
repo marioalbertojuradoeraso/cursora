@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso de Resultados de Aprendizaje con IA - Universidad Mariana</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        
+        nav a:hover {
+            opacity: 0.8;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 120px 2rem 80px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: #ff6b6b;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        /* Sections */
+        section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 2rem;
+        }
+        
+        h2 {
+            font-size: 2.2rem;
+            color: #1e3c72;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        /* Info Cards */
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .card h3 {
+            color: #1e3c72;
+            margin-bottom: 1rem;
+        }
+        
+        /* Modules */
+        .modules {
+            background: #f8f9fa;
+        }
+        
+        .module-list {
+            display: grid;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .module {
+            background: white;
+            padding: 2rem;
+            border-left: 5px solid #667eea;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+        }
+        
+        .module h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+        
+        .module ul {
+            margin-left: 1.5rem;
+            color: #555;
+        }
+        
+        .module-hours {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+        
+        /* Docentes */
+        .docentes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .docente {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .docente-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+        
+        .docente h3 {
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+        }
+        
+        .docente-title {
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        /* Cronograma */
+        .cronograma {
+            background: #f8f9fa;
+        }
+        
+        .schedule-table {
+            width: 100%;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+        }
+        
+        .schedule-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .schedule-table th {
+            background: #667eea;
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+        
+        .schedule-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .schedule-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        /* Precio */
+        .precio-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        .precio-amount {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+        
+        .precio-details {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            text-align: left;
+        }
+        
+        .precio-details ul {
+            list-style: none;
+        }
+        
+        .precio-details li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .precio-details li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4ade80;
+            font-weight: bold;
+        }
+        
+        /* Contacto */
+        .contacto {
+            background: #1e3c72;
+            color: white;
+        }
+        
+        .contacto h2 {
+            color: white;
+        }
+        
+        .contacto-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .contacto-card {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .contacto-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .contacto-card h3 {
+            margin-bottom: 1rem;
+        }
+        
+        .contacto-card a {
+            color: #4ade80;
+            text-decoration: none;
+        }
+        
+        /* Footer */
+        footer {
+            background: #0f1f3d;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            section {
+                padding: 50px 1rem;
+            }
+            
+            .schedule-table {
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">Universidad Mariana</div>
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#sobre">Sobre el Curso</a></li>
+                <li><a href="#modulos">Módulos</a></li>
+                <li><a href="#docentes">Docentes</a></li>
+                <li><a href="#cronograma">Cronograma</a></li>
+                <li><a href="#inversion">Inversión</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <h1>Curso de Resultados de Aprendizaje:<br>Planificación, Estructuración y Evaluación con IA<br>para Docentes Universitarios</h1>
+        <p>Transforma tu práctica docente con herramientas de inteligencia artificial<br>según el Decreto 1330 de 2019 y Decreto 0529 de 2024</p>
+        <a href="#contacto" class="cta-button">¡Inscríbete Ahora!</a>
+    </section>
+
+    <!-- Sobre el Curso -->
+    <section id="sobre">
+        <h2>Sobre el Curso</h2>
+        <p style="text-align: center; font-size: 1.1rem; max-width: 800px; margin: 0 auto 3rem;">
+            Formar a docentes universitarios en la planificación, estructuración y medición de los niveles de desempeño a través de resultados de aprendizaje, siguiendo la normatividad vigente, con el apoyo de herramientas de inteligencia artificial.
+        </p>
+        
+        <div class="info-cards">
+            <div class="card">
+                <div class="card-icon">⏱️</div>
+                <h3>36 Horas</h3>
+                <p>12 horas sincrónicas + 24 horas asincrónicas</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">💻</div>
+                <h3>Modalidad Virtual</h3>
+                <p>Clases sincrónicas con trabajo independiente</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🎓</div>
+                <h3>Certificación</h3>
+                <p>Avalada por la Universidad Mariana</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🤖</div>
+                <h3>Con IA</h3>
+                <p>Herramientas de inteligencia artificial aplicadas</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Módulos -->
+    <section class="modules" id="modulos">
+        <h2>Contenido del Curso</h2>
+        
+        <div class="module-list">
+            <div class="module">
+                <h3>Módulo 1: Definición de Resultados de Aprendizaje</h3>
+                <ul>
+                    <li>Análisis del Decreto 1330 de 2019 y Decreto 0529 de 2024</li>
+                    <li>Características de los resultados de aprendizaje</li>
+                    <li>Relación entre el perfil de egreso y los resultados de aprendizaje</li>
+                    <li>Formulación de Resultados de aprendizaje del programa y del curso</li>
+                    <li>Análisis de malla curricular</li>
+                </ul>
+                <span class="module-hours">3h sincrónicas + 6h asincrónicas</span>
+            </div>
+            
+            <div class="module">
+                <h3>Módulo 2: Planes de Mejoramiento</h3>
+                <ul>
+                    <li>Diseño de estrategias para la mejora de los resultados de aprendizaje</li>
+                    <li>Evaluación continua y retroalimentación docente-estudiante</li>
+                    <li>Implementación de ajustes en la enseñanza</li>
+                </ul>
+                <span class="module-hours">3h sincrónicas + 6h asincrónicas</span>
+            </div>
+            
+            <div class="module">
+                <h3>Módulo 3: Herramientas de IA en Evaluación</h3>
+                <ul>
+                    <li>Introducción al prompting de IA para planificación y medición</li>
+                    <li>Aplicación de IA en la personalización del aprendizaje</li>
+                    <li>Utilización de plataformas digitales para evaluaciones</li>
+                </ul>
+                <span class="module-hours">3h sincrónicas + 6h asincrónicas</span>
+            </div>
+            
+            <div class="module">
+                <h3>Módulo 4: Evaluación de Niveles de Desempeño</h3>
+                <ul>
+                    <li>Uso de verbos de Bloom en la redacción de resultados de aprendizaje</li>
+                    <li>Aplicaciones de IA en la creación de contenidos programáticos e instrumentos evaluativos</li>
+                    <li>Uso de herramientas digitales para la automatización de evaluaciones</li>
+                    <li>Criterios de medición del desempeño estudiantil</li>
+                    <li>Elaboración de instrumentos de evaluación</li>
+                </ul>
+                <span class="module-hours">3h sincrónicas + 6h asincrónicas</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Docentes -->
+    <section id="docentes">
+        <h2>Nuestros Facilitadores</h2>
+        
+        <div class="docentes-grid">
+            <div class="docente">
+                <div class="docente-avatar">👨‍🏫</div>
+                <h3>Ing. Juan Carlos Narváez Burgos, Mg.</h3>
+                <p class="docente-title">Ingeniero Sanitario y Ambiental</p>
+                <p>Maestría en Ingeniería Ambiental (Universidad Mariana). Amplia experiencia en procesos de autoevaluación con fines de registro calificado, acreditación nacional e internacional de programas universitarios.</p>
+            </div>
+            
+            <div class="docente">
+                <div class="docente-avatar">👨‍🔬</div>
+                <h3>Ing. Mario Alberto Jurado Eraso, PhD (e)</h3>
+                <p class="docente-title">Ingeniero Químico</p>
+                <p>Especialista en Ingeniería Ambiental. Maestría en Ingeniería Sanitaria y Ambiental. Doctorado en Proyectos (en desarrollo). Amplia experiencia en formulación y evaluación de proyectos con apoyo de inteligencia artificial.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cronograma -->
+    <section class="cronograma" id="cronograma">
+        <h2>Cronograma</h2>
+        <p style="text-align: center; margin-bottom: 2rem;">Miércoles de 10:00 a.m. a 1:00 p.m. | Universidad de Nariño</p>
+        
+        <div class="schedule-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Módulo</th>
+                        <th>Docente</th>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1. Definición de Resultados de Aprendizaje</td>
+                        <td>Ing. Juan Carlos Narváez, Mg.</td>
+                        <td>01/10/2025</td>
+                        <td>10:00 a.m. – 1:00 p.m.</td>
+                    </tr>
+                    <tr>
+                        <td>2. Planes de Mejoramiento</td>
+                        <td>Ing. Juan Carlos Narváez, Mg.</td>
+                        <td>08/10/2025</td>
+                        <td>10:00 a.m. – 1:00 p.m.</td>
+                    </tr>
+                    <tr>
+                        <td>3. Herramientas de IA en Evaluación</td>
+                        <td>Ing. Mario Jurado, PhD (e)</td>
+                        <td>15/10/2025</td>
+                        <td>10:00 a.m. – 1:00 p.m.</td>
+                    </tr>
+                    <tr>
+                        <td>4. Evaluación de Niveles de Desempeño</td>
+                        <td>Ing. Mario Jurado, PhD (e)</td>
+                        <td>22/10/2025</td>
+                        <td>10:00 a.m. – 1:00 p.m.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Inversión -->
+    <section id="inversion">
+        <h2>Inversión</h2>
+        
+        <div class="precio-box">
+            <h3>Valor del Curso</h3>
+            <div class="precio-amount">$6.868.374 COP</div>
+            <p style="font-size: 1.1rem;">36 horas certificadas | Hasta 30 participantes</p>
+            
+            <div class="precio-details">
+                <h4 style="margin-bottom: 1rem;">El valor incluye:</h4>
+                <ul>
+                    <li>Honorarios del docente y coordinador</li>
+                    <li>Capacitación para un grupo hasta 30 participantes</li>
+                    <li>Memorias digitales para cada participante</li>
+                    <li>Evaluación de los entregables del trabajo independiente</li>
+                    <li>Certificado avalado por la Universidad Mariana</li>
+                    <li>Plataforma tecnológica para clases sincrónicas</li>
+                </ul>
+            </div>
+            
+            <a href="#contacto" class="cta-button" style="margin-top: 2rem; background: white; color: #667eea;">Solicitar Información</a>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <section class="contacto" id="contacto">
+        <h2>Contacto e Inscripción</h2>
+        
+        <div class="contacto-info">
+            <div class="contacto-card">
+                <div class="contacto-icon">👩‍💼</div>
+                <h3>María Margarita Portilla González</h3>
+                <p>Directora programa de Ingeniería Ambiental</p>
+                <p><a href="mailto:ingenieriaambiental@umariana.edu.co">ingenieriaambiental@umariana.edu.co</a></p>
+                <p>📱 320 640 8644</p>
+            </div>
+            
+            <div class="contacto-card">
+                <div class="contacto-icon">👩‍💼</div>
+                <h3>Gloria Lucía Cárdenas Calvachi</h3>
+                <p>Líder extensión programa de Ingeniería Ambiental</p>
+                <p><a href="mailto:extensioningambiental@umariana.edu.co">extensioningambiental@umariana.edu.co</a></p>
+                <p>📱 313 622 7029</p>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: rgba(255,255,255,0.1); border-radius: 15px;">
+            <h3 style="margin-bottom: 1rem;">📍 Ubicación</h3>
+            <p>Universidad de Nariño, Pasto - Nariño, Colombia</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Universidad Mariana - Programa de Ingeniería Ambiental</p>
+        <p>55 años de experiencia en educación superior</p>
+    </footer>
+</body>
+</html>
